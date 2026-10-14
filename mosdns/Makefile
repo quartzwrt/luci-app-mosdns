@@ -4,11 +4,11 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=mosdns
+PKG_NAME:=mosdns-quartz
 PKG_VERSION:=5.3.4
 PKG_RELEASE:=14
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=mosdns-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/IrineSistiana/mosdns/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=0302a685db2a6c3c09af7bf4ff0dffd24f1e583383a47f064564f5270033671b
 
@@ -26,7 +26,7 @@ GO_PKG_LDFLAGS_X:=main.version=v$(PKG_VERSION)-r$(PKG_RELEASE)
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-define Package/mosdns
+define Package/mosdns-quartz
   SECTION:=net
   CATEGORY:=Network
   SUBMENU:=IP Addresses and Names
@@ -35,9 +35,10 @@ define Package/mosdns
   DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
-define Package/mosdns/install
+define Package/mosdns-quartz/install
 	$(call GoPackage/Package/Install/Bin,$(1))
+	$(MV) $(1)/usr/bin/mosdns $(1)/usr/bin/mosdns-quartz
 endef
 
-$(eval $(call GoBinPackage,mosdns))
-$(eval $(call BuildPackage,mosdns))
+$(eval $(call GoBinPackage,mosdns-quartz))
+$(eval $(call BuildPackage,mosdns-quartz))
